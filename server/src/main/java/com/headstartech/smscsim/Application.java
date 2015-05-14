@@ -1,4 +1,4 @@
-package com.headstartech.smpp;
+package com.headstartech.smscsim;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
