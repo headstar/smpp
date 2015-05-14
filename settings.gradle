@@ -1,5 +1,5 @@
 def String[] modules = [
-    'core'
+    'core', 'server'
 ]
 
 include modules
