@@ -1,0 +1,5 @@
+def String[] modules = [
+    'core'
+]
+
+include modules
