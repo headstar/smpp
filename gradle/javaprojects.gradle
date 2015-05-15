@@ -6,3 +6,5 @@ targetCompatibility = 1.7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 project.ext.chsmppVersion = '5.0.8'
+project.ext.logbackClassicVersion = '1.0.13'
+project.ext.guavaVersion = '18.0'

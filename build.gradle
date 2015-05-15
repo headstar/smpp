@@ -1,4 +1,4 @@
-def javaProjects = [ project(':core') ]
+def javaProjects = [ project(':server') ]
 
 configure (allprojects) {
     apply plugin: 'idea'

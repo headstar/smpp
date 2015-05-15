@@ -19,8 +19,11 @@ repositories {
 }
 
 dependencies {
-    compile project(':core')
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile "com.google.guava:guava:$project.guavaVersion"
+    compile "com.cloudhopper:ch-smpp:$project.chsmppVersion"
+
+    runtime "ch.qos.logback:logback-classic:$project.logbackClassicVersion"
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
