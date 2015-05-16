@@ -5,11 +5,12 @@ import com.cloudhopper.smpp.SmppServerConfiguration;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.headstartech.smscsim.server.SmppServerHandlerImpl;
-import com.headstartech.smscsim.server.SmppServerRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Created by per on 5/15/15.
@@ -17,10 +18,8 @@ import java.util.concurrent.*;
 @Configuration
 public class ServerConfig {
 
-    @Bean(destroyMethod = "shutdown")
-    public SmppServerRegistry smppServerRegistry() {
-        SmppServerRegistry smppServerRegistry = new SmppServerRegistry();
-
+    @Bean(destroyMethod = "destroy")
+    public SmppServer smppServer() {
 
         SmppServerConfiguration configuration = new SmppServerConfiguration();
         configuration.setPort(2776);
@@ -31,19 +30,12 @@ public class ServerConfig {
         configuration.setDefaultWindowSize(5);
         configuration.setDefaultWindowWaitTimeout(configuration.getDefaultRequestExpiryTimeout());
         configuration.setDefaultSessionCountersEnabled(true);
-        configuration.setJmxEnabled(true);
+        configuration.setJmxEnabled(false);
 
         ExecutorService es = Executors.newFixedThreadPool(17);
         ScheduledExecutorService monitorExecutor = Executors.newScheduledThreadPool(1,
                 new ThreadFactoryBuilder().setNameFormat("SmppServerSessionWindowMonitorPool-%d").build());
 
-        SmppServer server = new DefaultSmppServer(configuration, new SmppServerHandlerImpl(), es, monitorExecutor);
-
-        smppServerRegistry.addServer(server);
-
-        smppServerRegistry.startServers();
-
-        return smppServerRegistry;
-
+        return new DefaultSmppServer(configuration, new SmppServerHandlerImpl(), es, monitorExecutor);
     }
 }
