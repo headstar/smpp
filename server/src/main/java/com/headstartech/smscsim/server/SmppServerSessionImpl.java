@@ -19,12 +19,6 @@ public class SmppServerSessionImpl extends DefaultSmppSessionHandler {
 
     @Override
     public PduResponse firePduRequestReceived(PduRequest pduRequest) {
-        SmppSession session = sessionRef.get();
-
-        if(pduRequest instanceof Unbind) {
-            session.unbind(1000);
-        }
-
         return pduRequest.createResponse();
     }
 }

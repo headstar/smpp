@@ -31,6 +31,18 @@ public class SmppServerHandlerImpl implements SmppServerHandler {
     @Override
     public void sessionDestroyed(Long sessionId, SmppServerSession session) {
         logger.info("Session destroyed: sessionId={}", sessionId);
+
+        if (session.hasCounters()) {
+            logger.info("tx-enquireLink: {}", session.getCounters().getTxEnquireLink());
+            logger.info("tx-submitSM: {}", session.getCounters().getTxSubmitSM());
+            logger.info("tx-deliverSM: {}", session.getCounters().getTxDeliverSM());
+            logger.info("tx-dataSM: {}", session.getCounters().getTxDataSM());
+            logger.info("rx-enquireLink: {}", session.getCounters().getRxEnquireLink());
+            logger.info("rx-submitSM: {}", session.getCounters().getRxSubmitSM());
+            logger.info("rx-deliverSM: {}", session.getCounters().getRxDeliverSM());
+            logger.info("rx-dataSM: {}", session.getCounters().getRxDataSM());
+        }
+
         session.destroy();
     }
 
