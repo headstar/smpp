@@ -18,7 +18,7 @@ public class SmppServerHandlerImpl implements SmppServerHandler {
 
     @Override
     public void sessionBindRequested(Long sessionId, SmppSessionConfiguration sessionConfiguration, final BaseBind bindRequest) throws SmppProcessingException {
-        logger.info("Bind requested: sessionId={}", sessionId);
+        logger.info("Bind requested: sessionId={}, systemId={}", sessionId, sessionConfiguration.getSystemId());
         sessionConfiguration.setName("smpp." + sessionConfiguration.getSystemId());
     }
 
