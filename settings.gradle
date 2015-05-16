@@ -1,5 +1,5 @@
 def String[] modules = [
-    'server'
+    'server', 'client'
 ]
 
 include modules

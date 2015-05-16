@@ -30,7 +30,8 @@ public class ServerConfig {
         configuration.setDefaultWindowSize(5);
         configuration.setDefaultWindowWaitTimeout(configuration.getDefaultRequestExpiryTimeout());
         configuration.setDefaultSessionCountersEnabled(true);
-        configuration.setJmxEnabled(false);
+        configuration.setJmxEnabled(true);
+        configuration.setJmxDomain("SMSC");
 
         ExecutorService es = Executors.newFixedThreadPool(17);
         ScheduledExecutorService monitorExecutor = Executors.newScheduledThreadPool(1,

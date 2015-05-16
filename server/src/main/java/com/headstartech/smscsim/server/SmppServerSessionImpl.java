@@ -2,8 +2,7 @@ package com.headstartech.smscsim.server;
 
 import com.cloudhopper.smpp.SmppSession;
 import com.cloudhopper.smpp.impl.DefaultSmppSessionHandler;
-import com.cloudhopper.smpp.pdu.PduRequest;
-import com.cloudhopper.smpp.pdu.PduResponse;
+import com.cloudhopper.smpp.pdu.*;
 
 import java.lang.ref.WeakReference;
 
@@ -21,6 +20,10 @@ public class SmppServerSessionImpl extends DefaultSmppSessionHandler {
     @Override
     public PduResponse firePduRequestReceived(PduRequest pduRequest) {
         SmppSession session = sessionRef.get();
+
+        if(pduRequest instanceof Unbind) {
+            session.unbind(1000);
+        }
 
         return pduRequest.createResponse();
     }

@@ -4,12 +4,9 @@ import com.cloudhopper.smpp.SmppServer;
 import com.cloudhopper.smpp.type.SmppChannelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.ContextStartedEvent;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by per on 5/16/15.
