@@ -5,6 +5,7 @@ import com.cloudhopper.smpp.SmppServerConfiguration;
 import com.cloudhopper.smpp.impl.DefaultSmppServer;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.headstartech.smscsim.server.SmppServerHandlerImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,14 +17,17 @@ import java.util.concurrent.ScheduledExecutorService;
  * Created by per on 5/15/15.
  */
 @Configuration
-public class ServerConfig {
+public class Config {
+
+    @Autowired
+    SmppServerProperties smppServerProperties;
 
     @Bean(destroyMethod = "destroy")
     public SmppServer smppServer() {
 
         SmppServerConfiguration configuration = new SmppServerConfiguration();
-        configuration.setPort(2776);
-        configuration.setMaxConnectionSize(10);
+        configuration.setPort(smppServerProperties.getPort());
+        configuration.setMaxConnectionSize(smppServerProperties.getMaxConnections());
         configuration.setNonBlockingSocketsEnabled(true);
         configuration.setDefaultRequestExpiryTimeout(30000);
         configuration.setDefaultWindowMonitorInterval(15000);
@@ -33,7 +37,7 @@ public class ServerConfig {
         configuration.setJmxEnabled(true);
         configuration.setJmxDomain("SMSC");
 
-        ExecutorService es = Executors.newFixedThreadPool(17);
+        ExecutorService es = Executors.newCachedThreadPool();
         ScheduledExecutorService monitorExecutor = Executors.newScheduledThreadPool(1,
                 new ThreadFactoryBuilder().setNameFormat("SmppServerSessionWindowMonitorPool-%d").build());
 
