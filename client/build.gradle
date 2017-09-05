@@ -1,18 +1,16 @@
 buildscript {
     ext {
-        springBootVersion = '1.2.3.RELEASE'
+        springBootVersion = '1.5.6.RELEASE'
     }
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE")
     }
 }
 
-apply plugin: 'spring-boot'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 
 repositories {
     mavenCentral()
